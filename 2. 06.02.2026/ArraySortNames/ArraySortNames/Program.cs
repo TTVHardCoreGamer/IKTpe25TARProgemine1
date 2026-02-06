@@ -32,7 +32,7 @@
             
             int[] numbers = { 1, 2, 3, 4, 3, 55, 23, 2 };
             //tuleb välistada kordused
-            //mida teha, et numbrid ei korduks
+            //mida teha, et numbrid ei korduks?
 
             int[] distinct = numbers.Distinct().ToArray();
             foreach (int num in distinct)
