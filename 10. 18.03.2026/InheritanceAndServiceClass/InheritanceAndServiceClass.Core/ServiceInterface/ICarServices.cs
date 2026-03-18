@@ -1,6 +1,6 @@
 ﻿namespace InheritanceAndServiceClass.Core.ServiceInterface
 {
-    class ICarServices
+   public class ICarServices
     {
     }
 }
