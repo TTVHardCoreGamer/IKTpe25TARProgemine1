@@ -1,6 +1,7 @@
 ﻿namespace InheritanceAndServiceClass.Core.ServiceInterface
 {
-   public class ICarServices
+    public interface ICarServices
     {
+        void GetData();
     }
 }
