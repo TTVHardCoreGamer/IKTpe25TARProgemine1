@@ -38,6 +38,36 @@ namespace InheritanceAndServiceClass
                     }
                     break;
 
+                case 2;
+                    var app2 = builder.Build();
+                    using (var scope = app2.Services.CreateScope())
+                    {
+                        var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
+                        var program = new Program(carServices);
+                        program.GetAsync();
+                    }
+                    break;
+
+                case 3;
+                    var app3 = builder.Build();
+                    using (var scope = app3.Services.CreateScope())
+                    {
+                        var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
+                        var program = new Program(carServices);
+                        program.GetAsync();
+                    }
+                    break;
+
+                case 4;
+                    var app4 = builder.Build();
+                    using (var scope = app4.Services.CreateScope())
+                    {
+                        var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
+                        var program = new Program(carServices);
+                        program.GetAsync();
+                    }
+                    break;
+
                 default:
                     Console.WriteLine("Error");
                     break;
