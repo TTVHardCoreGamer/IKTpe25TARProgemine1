@@ -11,7 +11,7 @@ namespace University.Data
             // Look for any students already in the database
             if (context.Students.Any())
             {
-                return; //DB has been seeded
+                return;   // DB has been seeded
             }
             var students = new Student[]
             {
@@ -38,7 +38,7 @@ namespace University.Data
                 new Course{CourseId=1045,Title="Calculus",Credits=4},
                 new Course{CourseId=3141,Title="Trigonometry",Credits=4},
                 new Course{CourseId=2021,Title="Composition",Credits=3},
-                new Course{CourseId=2042,Title="Literature",Credits=4},
+                new Course{CourseId=2042,Title="Literature",Credits=4}
             };
             foreach (Course c in courses)
             {

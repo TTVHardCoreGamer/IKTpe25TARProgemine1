@@ -14,45 +14,44 @@
 <hr />
 
 <table class="table">
-    <thread>
+    <thead>
         <tr>
-            <th class="col-sm-10">
+            <th>
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
-            <th class="col-sm-10">
+            <th>
                 @Html.DisplayNameFor(model => model.FirstMidName)
             </th>
-            <th class="col-sm-10">
+            <th>
                 @Html.DisplayNameFor(model => model.EnrollmentDate)
             </th>
+            <th>
+
+            </th>
         </tr>
-    </thread>
+    </thead>
 
     <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td class="col-sm-10">
-                        @Html.DisplayFor(model => item.LastName)
-                    </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.LastName)
+                </td>
 
-                    <td class="col-sm-10">
-                        @Html.DisplayFor(model => item.FirstMidName)
-                    </td>
+                <td>
+                    @Html.DisplayFor(model => item.FirstMidName)
+                </td>
 
-                    <td class="col-sm-10">
-                        @Html.DisplayFor(model => item.EnrollmentDate)
-                    </td>
-                    <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <td>
+                    @Html.DisplayFor(model => item.EnrollmentDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
-
-
-
-

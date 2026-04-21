@@ -1,6 +1,6 @@
 ﻿namespace University.ViewModel
 {
-    public class StudentIndexViewModel
+    public class StudentDetailsViewModel
     {
         public int Id { get; set; }
         public string LastName { get; set; }
