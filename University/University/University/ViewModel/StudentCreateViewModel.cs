@@ -1,6 +1,4 @@
-﻿using University.Models;
-
-namespace University.ViewModel
+﻿namespace University.ViewModel
 {
     public class StudentCreateViewModel
     {
@@ -8,8 +6,5 @@ namespace University.ViewModel
         public string LastName { get; set; }
         public string FirstMidName { get; set; }
         public DateTime EnrollmentDate { get; set; }
-        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }
-
-    

@@ -52,9 +52,9 @@ namespace University.Controllers
                 .Include(s => s.Enrollments)
                 //kui tahad uuesti objekti kasutada objekti sees, siis kasutad ThenInclude
                     .ThenInclude(e => e.Course)
-                //andmeid ei salvestata vahemällu ja ei jälgita
+                    //andmeid ei salvestata vahemällu ja ei jälgita
                 .AsNoTracking()
-                //tagastab esimese elemendi andmedtest, mis on tingimuses välja toodud
+                //tagastab esimese elemendi andmetest, mis on tingimuses välja toodud
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             var vm = new StudentDetailsViewModel
@@ -63,7 +63,7 @@ namespace University.Controllers
                 LastName = student.LastName,
                 FirstMidName = student.FirstMidName,
                 EnrollmentDate = student.EnrollmentDate,
-                //miks kasutame ?? vaikiva väärtuse annab e default väärtus, kui muutuja on tühi(null)
+                //miks kasutasime ?? - vaikiva väärtuse annab e default väärtus, kui muutuja on tühi (null)
                 //või mitte defineeritud. Annab enne vasakpoolse väärtuse, kui see ei ole null. Kui on null,
                 //siis annab parempoolse väärtuse.
                 EnrollmentsVm = (student.Enrollments ?? Enumerable.Empty<Enrollment>())
@@ -91,21 +91,21 @@ namespace University.Controllers
         }
 
         //GET: Student/Create
-        //see meetod tagastab vaate, kus saab luua uue student-i
+        //see meetod tagastab vaate, kus saab luua uue student'i
         public IActionResult Create()
         {
             return View();
         }
 
         //POST: Student/Create
-        //see meetod salvestab uue student-i andmebaasi
+        //see meetod salvestab uue student'i andmebaasi
         [HttpPost]
-        //ses meetod on kaitstud CSRF rünnakute eest
-        //see meetod on asünkroone, mis tähendab, et see meetod ei saa
+        //see meetod on kaitstud CSRF rünnakute eest
+        //see meetod on asünkroonene, mis tähendab, et see meetod ei saa
         //olla samaaegselt mitu korda käivitatud
         public async Task<IActionResult> Create(StudentCreateViewModel vm)
         {
-            //kui model on valiidne, siis loome uue studenti-i ja salvestame selle andmebaasi
+            //kui model on valiidne, siis loome uue student'i ja salvestame selle andmebaasi
             if (ModelState.IsValid)
             {
                 var student = new Models.Student
