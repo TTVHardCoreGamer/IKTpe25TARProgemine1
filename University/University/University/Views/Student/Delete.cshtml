@@ -1,0 +1,28 @@
+﻿@model University.ViewModel.StudentDeleteViewModel
+
+<h1>Delete Student</h1>
+
+<p>Are you sure you want to delete this?</p>
+
+<div class="form-group">
+    <label>LastName</label>
+    <input asp-for="LastName" class="form-control" readonly />
+</div>
+
+<div class="form-group">
+    <label>FirstMidName</label>
+    <input asp-for="FirstMidName" class="form-control" readonly />
+</div>
+
+<div class="form-group">
+    <label>EnrollmentDate</label>
+    <input asp-for="EnrollmentDate" class="form-control" readonly />
+</div>
+<br />
+<form asp-action="Delete" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
