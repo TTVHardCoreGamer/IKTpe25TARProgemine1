@@ -18,14 +18,39 @@ namespace University.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            var students = from s in _context.Students
+                           select s;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+
+                case "Date":
+                    students = students.OrderBy(s => s.EnrollmentDate);
+                    break;
+
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.EnrollmentDate);
+                    break;
+
+                default:
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+            }
+
             //leiame kõik student'id ja teisendame need StudentIndexViewModel'iks
             //miks peab kasutama await?
             //kui me kasutame await, siis me ootame kuni päring on lõpetatud
             //ja saame tulemuse, enne kui me jätkame koodi täitmist
             var result = await _context.Students
-                .Select(s => new ViewModel.StudentIndexViewModel
+                .Select(s => new StudentIndexViewModel
                 {
                     Id = s.Id,
                     LastName = s.LastName,
@@ -177,36 +202,73 @@ namespace University.Controllers
         }
 
         //tehke Delete Get meetod koos vaatega
-        public async Task<IActionResult> Delete(int id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
         {
-            var student = await _context.Students.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            if (student == null) return NotFound();
+
+            var student = await _context.Students
+                .Include(s => s.Enrollments)
+                    .ThenInclude(e => e.Course)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             var vm = new StudentDeleteViewModel
             {
                 Id = student.Id,
                 LastName = student.LastName,
                 FirstMidName = student.FirstMidName,
-                EnrollmentDate = student.EnrollmentDate
+                EnrollmentDate = student.EnrollmentDate,
+                EnrollmentsVm = (student.Enrollments ?? Enumerable.Empty<Enrollment>())
+                    .Select(x => new EnrollmentViewModel
+                    {
+                        CourseId = x.CourseId,
+                        Grade = x.Grade,
+                        CourseVm = new CourseViewModel
+                        {
+                            CourseId = x.Course?.CourseId ?? 0,
+                            Title = x.Course?.Title,
+                            Credits = x.Course?.Credits ?? 0
+                        }
+                    }).ToArray()
             };
+
+            if (student == null)
+            {
+                return NotFound();
+            }
 
             return View(vm);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(StudentDeleteViewModel vm)
+        //tuleb teha ankeedi kustutamise nupp
+        public async Task<IActionResult> DeletePost(int id)
         {
-            var student = await _context.Students.FindAsync(vm.Id);
-
-            if (student != null)
+            try
             {
-                _context.Students.Remove(student);
+                Student delete = new Student()
+                {
+                    Id = id,
+                };
+                //teine variant
+                //var student = await _context.Students
+                    //.FirstOrDefaultAsync(x => x.Id == id);
+
+                _context.Students.Remove(delete);
                 await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException)
+            {
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+                throw;
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Delete));        
         }
     }
 }
-
