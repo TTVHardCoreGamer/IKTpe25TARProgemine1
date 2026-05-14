@@ -28,7 +28,7 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last name</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last name</a>
             </th>
             <th>
                 First name
@@ -69,7 +69,7 @@
 
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisable = !Model.HasNextPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
@@ -82,8 +82,8 @@
            asp-route-sortOrder="@ViewData["CurrentSort"]"
            asp-route-pageNumber="@(Model.PageIndex + 1)"
            asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-default @nextDisable">
+           class="btn btn-default @nextDisabled">
         Next
     </a>
-}
 
+}

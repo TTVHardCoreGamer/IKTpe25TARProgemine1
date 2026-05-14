@@ -9,16 +9,17 @@ namespace University.Controllers
 {
     public class HomeController : Controller
     {
-            private readonly UniversityContext _context;
+        private readonly UniversityContext _context;
 
-            public HomeController
-                (
-                    UniversityContext context
-                )
-            {
-                _context = context;
-            }
-            public IActionResult Index()
+        public HomeController
+            (
+                UniversityContext context
+            )
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
         {
             return View();
         }
