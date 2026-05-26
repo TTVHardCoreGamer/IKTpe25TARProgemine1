@@ -10,7 +10,7 @@ namespace University.Models
         public int Credits { get; set; }
         public int DepartmentId { get; set; }
         
-        public Department Department { get; set; }
+        public Department Departments { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
         public ICollection<CourseAssigment> CourseAssignments { get; set; }
     }
