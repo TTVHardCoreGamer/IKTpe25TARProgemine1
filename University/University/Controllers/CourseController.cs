@@ -122,5 +122,6 @@ namespace University.Controllers
             ViewBag.DepartmentId = new SelectList(departmentsQuery
                 .AsNoTracking(), "DepartmentId", "Name", selectedDepartment);
         }
+
     }
 }
